@@ -9,4 +9,8 @@ public class SpringBootKafkaProducerExampleApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootKafkaProducerExampleApplication.class, args);
 	}
+	
+	private void myfunction() {
+		System.out.println("");
+	}
 }
