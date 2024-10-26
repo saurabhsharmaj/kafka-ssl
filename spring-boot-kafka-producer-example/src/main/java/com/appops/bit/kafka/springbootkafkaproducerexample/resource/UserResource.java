@@ -11,15 +11,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("kafka")
 public class UserResource {
 
-    @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
+	@Autowired
+	private KafkaTemplate<String, String> kafkaTemplate;
 
-    private static final String TOPIC = "EMAIL_NOTIFICATION_TOPIC";
-    @GetMapping("/publish/{name}")
-    public String post(@PathVariable("name") final String name) {
+	private static final String DEMO_TOPIC = "demo-topic";
 
-        kafkaTemplate.send(TOPIC, name);
+	private static final String OUTPUT_TOPIC = "output-topic";
 
-        return "Published successfully";
-    }
+	@GetMapping("/publish/{topic}/{name}")
+	public String post(@PathVariable("topic") final String topic, @PathVariable("name") final String name) {
+		if (topic.equalsIgnoreCase("1")) {
+			kafkaTemplate.send(DEMO_TOPIC, name);
+		} else if (topic.equalsIgnoreCase("2")) {
+			kafkaTemplate.send(OUTPUT_TOPIC, name);
+		}
+
+		return "Published successfully";
+	}
+
 }
